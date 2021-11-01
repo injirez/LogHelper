@@ -6,7 +6,18 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters, status
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from .serializers import UserListSerializer, FileListSerializer, PushListSerializer, SmsListSerializer, SpnListSerializer, LkListSerializer
+from .serializers import (UserListSerializer,
+                          FileListSerializer,
+
+                          PushListSerializer,
+                          SmsListSerializer,
+                          SpnListSerializer,
+                          LkListSerializer,
+
+                          CreatePushSerializer,
+                          CreateSmsSerializer,
+                          CreateSpnSerializer,
+                          CreateLkSerializer)
 
 class UserListView(ListAPIView):
     filter_backends = [filters.SearchFilter]
@@ -46,6 +57,25 @@ class FileListView(ListAPIView):
         obj = File.objects.all()
         return obj
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def get_success_headers(self, data):
+        try:
+            return {'Location': data[api_settings.URL_FIELD_NAME]}
+        except (TypeError, KeyError):
+            return {}
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
     def get_serializer_class(self):
         return FileListSerializer
 
@@ -80,25 +110,6 @@ class SpnListView(ListAPIView):
         obj = Spnavigator.objects.all()
         return obj
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
-    def perform_create(self, serializer):
-        serializer.save()
-
-    def get_success_headers(self, data):
-        try:
-            return {'Location': data[api_settings.URL_FIELD_NAME]}
-        except (TypeError, KeyError):
-            return {}
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
     def get_serializer_class(self):
         return SpnListSerializer
 
@@ -110,24 +121,31 @@ class LkListView(ListAPIView):
         obj = Lk.objects.all()
         return obj
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def get_serializer_class(self):
+        return LkListSerializer
+
+
+
+class PushPostMethod(ListCreateAPIView):
+    serializer_class = CreatePushSerializer
 
     def perform_create(self, serializer):
         serializer.save()
 
-    def get_success_headers(self, data):
-        try:
-            return {'Location': data[api_settings.URL_FIELD_NAME]}
-        except (TypeError, KeyError):
-            return {}
+class SmsPostMethod(ListCreateAPIView):
+    serializer_class = CreateSmsSerializer
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        serializer.save()
 
-    def get_serializer_class(self):
-        return LkListSerializer
+class SpnPostMethod(ListCreateAPIView):
+    serializer_class = CreateSpnSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+class LkPostMethod(ListCreateAPIView):
+    serializer_class = CreateLkSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()

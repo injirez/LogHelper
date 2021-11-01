@@ -17,6 +17,8 @@ class ProjectListSerializer(serializers.ModelSerializer):
         model = Project
         fields = ('id', 'name')
 
+
+
 class PushListSerializer(serializers.ModelSerializer):
     user_uid = UserListSerializer(read_only=True)
     path_name = FileListSerializer(read_only=True)
@@ -53,18 +55,41 @@ class LkListSerializer(serializers.ModelSerializer):
         model = Lk
         fields = ('id', 'project_name', 'user_uid', 'path_name', 'func_name', 'message', 'sequent_log', 'subsequent_log')
 
+
+
+
+class CreatePushSerializer(serializers.ModelSerializer):
+    user_uid = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='fio')
+    path_name = serializers.SlugRelatedField(queryset=File.objects.all(), slug_field='path')
+    project_name = serializers.SlugRelatedField(queryset=Project.objects.all(), slug_field='name')
+
+    class Meta:
+        model = Push
+        fields = ('id', 'project_name', 'user_uid', 'path_name', 'func_name', 'message', 'sequent_log', 'subsequent_log')
+
+class CreateSmsSerializer(serializers.ModelSerializer):
+    user_uid = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='fio')
+    path_name = serializers.SlugRelatedField(queryset=File.objects.all(), slug_field='path')
+    project_name = serializers.SlugRelatedField(queryset=Project.objects.all(), slug_field='name')
+
+    class Meta:
+        model = Sms
+        fields = ('id', 'project_name', 'user_uid', 'path_name', 'func_name', 'message', 'sequent_log', 'subsequent_log')
+
 class CreateSpnSerializer(serializers.ModelSerializer):
-    user_uid = UserListSerializer(read_only=True)
-    path_name = FileListSerializer(read_only=True)
-    project_name = ProjectListSerializer(read_only=True)
+    user_uid = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='fio')
+    path_name = serializers.SlugRelatedField(queryset=File.objects.all(), slug_field='path')
+    project_name = serializers.SlugRelatedField(queryset=Project.objects.all(), slug_field='name')
 
     class Meta:
         model = Spnavigator
         fields = ('id', 'project_name', 'user_uid', 'path_name', 'func_name', 'message', 'sequent_log', 'subsequent_log')
 
-    def create(self, validated_data):
-        user_data = validated_data.pop('user_uid')
-        log = Spnavigator.objects.create(**validated_data)
-        for user_data in user_data:
-            Spnavigator.objects.create(log=log, **user_data)
-        return log
+class CreateLkSerializer(serializers.ModelSerializer):
+    user_uid = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='fio')
+    path_name = serializers.SlugRelatedField(queryset=File.objects.all(), slug_field='path')
+    project_name = serializers.SlugRelatedField(queryset=Project.objects.all(), slug_field='name')
+
+    class Meta:
+        model = Lk
+        fields = ('id', 'project_name', 'user_uid', 'path_name', 'func_name', 'message', 'sequent_log', 'subsequent_log')
