@@ -3,6 +3,7 @@ import uuid
 
 class Push(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    project_name = models.ForeignKey('Project', on_delete=models.CASCADE)
     user_uid = models.ForeignKey('User', on_delete=models.CASCADE, default=uuid.uuid4)
     path_name = models.ForeignKey('File', on_delete=models.CASCADE, default=uuid.uuid4)
     func_name = models.CharField('Name of function', max_length=50)
@@ -12,6 +13,7 @@ class Push(models.Model):
 
 class Sms(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    project_name = models.ForeignKey('Project', on_delete=models.CASCADE)
     user_uid = models.ForeignKey('User', on_delete=models.CASCADE, default=uuid.uuid4)
     path_name = models.ForeignKey('File', on_delete=models.CASCADE, default=uuid.uuid4)
     func_name = models.CharField('Name of function', max_length=50)
@@ -21,6 +23,7 @@ class Sms(models.Model):
 #
 class Spnavigator(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    project_name = models.ForeignKey('Project', on_delete=models.CASCADE)
     user_uid = models.ForeignKey('User', on_delete=models.CASCADE, default=uuid.uuid4)
     path_name = models.ForeignKey('File', on_delete=models.CASCADE, default=uuid.uuid4)
     func_name = models.CharField('Name of function', max_length=50)
@@ -30,6 +33,7 @@ class Spnavigator(models.Model):
 
 class Lk(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    project_name = models.ForeignKey('Project', on_delete=models.CASCADE)
     user_uid = models.ForeignKey('User', on_delete=models.CASCADE, default=uuid.uuid4)
     path_name = models.ForeignKey('File', on_delete=models.CASCADE, default=uuid.uuid4)
     func_name = models.CharField('Name of function', max_length=50)
@@ -44,4 +48,7 @@ class User(models.Model):
 class File(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     path = models.CharField('Path to log file', max_length=500, unique=True)
+
+class Project(models.Model):
+    name = models.CharField('Name of a project', max_length=20, unique=True)
 
