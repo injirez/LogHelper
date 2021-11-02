@@ -8,7 +8,7 @@ $ cd SPLogs
 ```
 ### Activate venv
 ```bash
-cd SPLogs
+cd StatusPreasens/SPLogs
 source venv/bin/activate
 ```
 ### Install the dependencies
