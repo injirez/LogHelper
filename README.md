@@ -1,17 +1,17 @@
-#StatusPreasensLogs
+# StatusPreasensLogs 1
 Simple django app for collecting logs.
 
-##Setup 
+## Setup 
 ```bash
 $ git clone https://github.com/injirez/StatusPreasens
 $ cd SPLogs
 ```
-###Activate venv
+### Activate venv
 ```bash
 cd SPLogs
 source venv/bin/activate
 ```
-###Install the dependencies
+### Install the dependencies
 ```bash
 (venv)$ pip3 install -r requirements.txt
 ```
