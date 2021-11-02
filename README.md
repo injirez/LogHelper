@@ -4,7 +4,6 @@ Simple django app for collecting logs.
 ## Setup 
 ```bash
 $ git clone https://github.com/injirez/StatusPreasens
-$ cd SPLogs
 ```
 ### Activate venv
 ```bash
