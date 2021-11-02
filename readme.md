@@ -1,4 +1,4 @@
-# StatusPreasensLogs
+# StatusPreasensLogs 1
 Simple django app for collecting logs.
 
 ## Setup 
