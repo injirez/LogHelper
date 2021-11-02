@@ -7,7 +7,7 @@ $ git clone https://github.com/injirez/StatusPreasens
 ```
 ### Activate venv
 ```bash
-cd StatusPreasens/SPLogs
+cd StatusPreasens
 source venv/bin/activate
 ```
 ### Install the dependencies
