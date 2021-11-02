@@ -1,7 +1,7 @@
-#StatusPreasensLogs
+# StatusPreasensLogs
 Simple django app for collecting logs.
 
-##Setup 
+## Setup 
 ```bash
 $ git clone https://github.com/injirez/StatusPreasens
 $ cd SPLogs
