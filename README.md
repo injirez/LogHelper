@@ -1,13 +1,13 @@
-# StatusPreasensLogs 
+# LogHelper
 Simple django app for collecting logs.
 
 ## Setup 
 ```bash
-$ git clone https://github.com/injirez/StatusPreasens
+$ git clone https://github.com/injirez/LogHelper
 ```
 ### Activate venv
 ```bash
-cd StatusPreasens
+cd LogHelper
 source venv/bin/activate
 ```
 ### Install the dependencies
