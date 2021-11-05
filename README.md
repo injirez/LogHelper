@@ -46,8 +46,8 @@ Allows you to see all methods and usage of app.
 
 
 
-###Get list of Users
-####Request
+### Get list of Users
+#### Request
 ``GET /users/``
 
 ```bash 
